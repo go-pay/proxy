@@ -24,4 +24,5 @@ type Config struct {
 	ProxyPort   string     `json:"proxy_port" yaml:"proxy_port" toml:"proxy_port"`       // 转发到的接口 Port
 	ServerPort  string     `json:"server_port" yaml:"server_port" toml:"server_port"`    // 代理转发服务启动的端口
 	Key         string     `json:"key" yaml:"key" toml:"key"`                            // 简单的校验Key
+	ShowLog     bool       `json:"show_log" yaml:"show_log" toml:"show_log"`             // 是否展示转发记录
 }

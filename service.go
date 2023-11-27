@@ -10,8 +10,6 @@ import (
 	"net/http"
 	"os"
 	"strings"
-
-	"github.com/go-pay/xlog"
 )
 
 type Service struct {
@@ -21,6 +19,7 @@ type Service struct {
 	Host    string
 	Port    string
 	Key     string
+	ShowLog bool
 	log     *log.Logger
 }
 
@@ -31,7 +30,8 @@ func NewHandler(c *Config) (handler *Handler) {
 		Host:    c.ProxyHost,
 		Port:    c.ProxyPort,
 		Key:     c.Key,
-		log:     log.New(os.Stdout, string(xlog.Magenta)+" [PROXY] "+string(xlog.Reset), log.Ldate|log.Lmicroseconds),
+		ShowLog: c.ShowLog,
+		log:     log.New(os.Stdout, string([]byte{27, 91, 51, 53, 109})+" [PROXY] "+string([]byte{27, 91, 48, 109}), log.Ldate|log.Lmicroseconds),
 	}
 	return &Handler{c: c}
 }
@@ -116,7 +116,9 @@ func (s *Service) Proxy(c context.Context, w http.ResponseWriter, r *http.Reques
 		return
 	}
 	defer resp.Body.Close()
-	s.log.Printf("| %d | %s | %s      %s\n", resp.StatusCode, s.clientIP(), rMethod, r.RequestURI)
+	if s.ShowLog {
+		s.log.Printf("| %d | %s | %s      %s\n", resp.StatusCode, s.clientIP(), rMethod, r.RequestURI)
+	}
 	rsp, err := io.ReadAll(resp.Body)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
