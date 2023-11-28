@@ -11,16 +11,15 @@ func TestService_Proxy(t *testing.T) {
 
 	// 解开下面注释测试
 	//c := &Config{
-	//	ProxySchema: SchemaHTTPS,
-	//	ProxyHost:   "api.igoogle.ink",
-	//	ProxyPort:   "",
-	//	ServerPort:  ":2233",
-	//	Key:         "5urivxGzAqOzdJotjbK7AOmayYYnyHlP",
+	//	ProxySchema:  SchemaHTTP,
+	//	ProxyHost:    "127.0.0.1",
+	//	ProxyPort:    ":2233",
+	//	ServerPort:   ":1122",
+	//	ProxyAuthKey: "5urivxGzAqOzdJotjbK7AOmayYYnyHlP",
+	//	ShowLog:      true,
 	//}
 	//
-	//handler := NewHandler(c)
+	//svr := NewServer(c)
 	//
-	//if err := handler.ListenAndServe(); err != nil {
-	//	log.Fatal("Proxy Start Err：", err)
-	//}
+	//svr.ListenAndServe()
 }
